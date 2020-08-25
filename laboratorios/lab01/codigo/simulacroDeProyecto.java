@@ -113,7 +113,7 @@ public class simulacroDeProyecto{
      * @return int: número de maneras distintas en las que se puede rellenar el rectángulo.
      */
     public static int ways(int n){
-        if(n>0 && n<=2){
+        if(n>=0 && n<=2){
             return n; //T(n) = c1, donde c1 = 5
         }else{
             return ways(n-1) + ways(n-2);// T(n) = c2 + T(n-1) + T(n-2), donde c2 = 3
