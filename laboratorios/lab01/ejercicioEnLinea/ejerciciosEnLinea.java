@@ -8,7 +8,7 @@
 
 public class ejerciciosEnLinea {
     //Ejercicios Recursión1 de CodingBat
-    public static int factorial(int n) {
+    public int factorial(int n) {
         if(n == 0){
             return 1; // T(n) = c1, donde c1 = 3
         }else{
@@ -16,7 +16,7 @@ public class ejerciciosEnLinea {
         }
     }
 
-    public static int bunnyEars(int bunnies) {
+    public int bunnyEars(int bunnies) {
         if(bunnies == 0){
             return 0; // T(n) = c1, donde c1 = 3
         }else{
