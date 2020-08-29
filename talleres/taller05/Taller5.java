@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mycompany.taller5;
-
 /**
- *
- * @author aleja
+ *Esta clase contiene la solución a los ejercicios propuestos ene el taller 5, incluyendo el algoritmo que calcula los tiempos de ejecución de cada uno.
+ * @author Valentina Moreno Ramírez, Alejandra Palacio Jaramillo.
  */
 public class Taller5 {
     /**
