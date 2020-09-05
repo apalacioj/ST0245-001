@@ -1,3 +1,5 @@
+/** Esta clase contiene los algoritmos merge sort e insertion sort, los cuales fueron propuestos en el Laboratorio 2.   
+*/
 public class Laboratorio {
     public static void mergeSort(int[] a, int n) {
         if (n < 2) {
