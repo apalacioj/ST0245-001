@@ -1,43 +1,47 @@
 /** Esta clase contiene los algoritmos merge sort e insertion sort, los cuales fueron propuestos en el Laboratorio 2.   
 */
 public class Laboratorio {
-    public static void mergeSort(int[] a, int n) {
-        if (n < 2) {
-            return;
-        }
-        int mid = n / 2;
-        int[] l = new int[mid];
-        int[] r = new int[n - mid];
+ public static void mergeSort(int[] a) {
+        if (a.length > 1) {                                                     // T(n) = c1
+        int[] a1 = new int[a.length/2];                                         // T(n) = c2
+        int[] a2 = new int[a.length - a1.length];                               // T(n) = c3
      
-        for (int i = 0; i < mid; i++) {
-            l[i] = a[i];
-        }
-        for (int i = mid; i < n; i++) {
-            r[i - mid] = a[i];
-        }
-        mergeSort(l, mid);
-        mergeSort(r, n - mid);
-     
-        merge(a, l, r, mid, n - mid);
+        System.arraycopy(a, 0, a1, 0, a1.length);                               // T(n) = c4*(n/2) + c5
+        System.arraycopy(a, a1.length, a2, 0, a2.length);                       // T(n) = c5*(n/2) + c6
+        mergeSort(a1);                                                          // T(n) = T(n/2) + c7
+        mergeSort(a2);                                                          // T(n) = T(n/2) + c8
+        merge(a, a1, a2, a1.length, a2.length);                                 // T(n) = T(n-1) + c9
+       }
     }
 
-    public static void merge(int[] a, int[] l, int[] r, int left, int right) {
-        int i = 0, j = 0, k = 0;
-        while (i < left && j < right) {
-            if (l[i] <= r[j]) {
-                a[k++] = l[i++];
-            }
-            else{
-                a[k++] = r[j++];
-            }
+ 
+
+    private static void merge(int[] a, int[] a1, int[] a2, int izq, int der) {  
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    while (x < izq && y < der) {                                                
+        if (a1[x] <= a2[y]){
+            a[z] = a1[x];
+            x++;
         }
-        while (i < left) {
-            a[k++] = l[i++];
+        else{
+            a[z] = a2[y];
+            y++;
         }
-        while (j < right) {
-            a[k++] = r[j++];
-        }
+        z++;
     }
+    while (y < der) {
+        a[z] = a2[y];
+        y++;
+        z++;
+    }
+    while (x < izq) {
+        a[z] = a1[x];
+        x++;
+        z++;
+    }
+}
 
     public static void insertionSort(int array[]) {  
         int n = array.length;  
