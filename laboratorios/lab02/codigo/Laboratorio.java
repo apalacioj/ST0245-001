@@ -1,6 +1,16 @@
-/** Esta clase contiene los algoritmos merge sort e insertion sort, los cuales fueron propuestos en el Laboratorio 2.   
+/**
+Esta clase contiene los algoritmos merge sort e insertion sort, los cuales fueron propuestos en el Laboratorio 2.
+@author Valentina Moreno y Alejandra Palacio
+@version 06/09/2020
 */
 public class Laboratorio {
+ 
+ /**
+ Este método nos permitirá ordenar un arreglo internamente
+ 
+ @param int[] a, el arreglo que se organizará
+ @see merge
+ */
  public static void mergeSort(int[] a) {
         if (a.length > 1) {                                                     // T(n) = c1
         int[] a1 = new int[a.length/2];                                         // T(n) = c2
@@ -15,7 +25,16 @@ public class Laboratorio {
     }
 
  
+/** 
+Este método une los arreglos que se separan en el método merge sort en un solo arreglo y realiza las comparaciones
+para ordenarlo
+@param int[]a arreglo original
+@param int[]a1 primera "mitad" del arreglo
+@param int[]a2 segunda "mitad" del arreglo
+@param int izq longitud del arreglo a1
+@param int der longitud del arreglo a2
 
+*/
     private static void merge(int[] a, int[] a1, int[] a2, int izq, int der) {  
     int x = 0;
     int y = 0;
@@ -42,6 +61,7 @@ public class Laboratorio {
         z++;
     }
 }
+ 
 
     public static void insertionSort(int array[]) {  
         int n = array.length;  
