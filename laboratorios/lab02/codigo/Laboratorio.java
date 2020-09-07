@@ -21,7 +21,9 @@ public class Laboratorio {
         mergeSort(a2);                                                          // T(n) = T(n/2) + c8
         merge(a, a1, a2, a1.length, a2.length);                                 // T(n) = T(n-1) + c9
        }                                                                       
-    }                                                                           //Luego de  T(n) = O(n)logn
+    }                                                                           //Luego de calcular las ecuaciones de recurrencia, aplicar la regla de reflexividad,
+	                                                                        //regla de la suma y regla del producto se obtiene que la complejidad del algoritmo es
+	                                                                        //O(nlog(n)), donde n es la longitud del arreglo. 
 
  
 /** 
@@ -68,16 +70,18 @@ public class Laboratorio {
 * @param int [] array arreglo que se organizará
 */
 public static void insertionSort(int[] array) {
-    for (int i = array.length - 1; i > 0; i--) {                                                 // T(n) = c1 + c2*(n-1)
-        int mayor = 0;                                                                           // T(n) = c3*(n-1)
-        for (int j = 0; j < i; j++) {                                                            // T(n) = c4 + c5*(n-1)*(n-1)
+    for (int i = array.length - 1; i > 0; i--) {                             // T(n) = c1 + c2*(n-1)
+        int mayor = 0;                                                       // T(n) = c3*(n-1)
+        for (int j = 0; j < i; j++) {                                        // T(n) = c4 + c5*(n-1)*(n-1)
             if (array[j + 1] > array[mayor]) {
-                mayor = j + 1;                                                                   // T(n) = c6*(n-1)*(n-1)
+                mayor = j + 1;                                               // T(n) = c6*(n-1)*(n-1)
             }
         }
-        swap(array, i, mayor);                                                                   // T(n) = c7*(n-1)
-    }
-}
+        swap(array, i, mayor);                                               // T(n) = c7*(n-1)
+    }                                                                                   
+}                                                                            //Luego de sumar las complejidades de cada instrucción, aplicar la regla de reflexividad,
+	                                                                     //regla de la suma y regla del producto se obtiene que la complejidad del algoritmo es
+	                                                                     //O(n^2), donde n es la longitud del arreglo. 
 
 /**
 * Este método permite intercambiar de posición los elementos de un arreglo.
