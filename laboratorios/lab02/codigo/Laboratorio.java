@@ -63,20 +63,20 @@ public class Laboratorio {
  
 
 /**
-* Este método organiza un arreglo comparando si el elemento a organizar es mayor que los elementos anteriores 
+* Este método organiza un arreglo comparando si el elemento a organizar es mayor que los elementos anteriores.
 * para determinar su posición para que quede en orden.
 * @param int [] array arreglo que se organizará
 */
 public static void insertionSort(int[] array) {
-		for (int i = array.length - 1; i > 0; i--) {                                                  // T(n) = c1 + c2*(n-1)
-			    int mayor = 0;                                                                           // T(n) = c3*(n-1)
-			    for (int j = 0; j < i; j++) {                                                            // T(n) = c4 + c5*(n-1)*(n-1)
-				           if (array[j + 1] > array[mayor]) {
-					              mayor = j + 1;                                                               // T(n) = c6*(n-1)*(n-1)
-				           }
-			    }
-  swap(array, i, mayor);                                                                        // T(n) = c7*(n-1)
-		}
+    for (int i = array.length - 1; i > 0; i--) {                                                 // T(n) = c1 + c2*(n-1)
+        int mayor = 0;                                                                           // T(n) = c3*(n-1)
+        for (int j = 0; j < i; j++) {                                                            // T(n) = c4 + c5*(n-1)*(n-1)
+            if (array[j + 1] > array[mayor]) {
+                mayor = j + 1;                                                                   // T(n) = c6*(n-1)*(n-1)
+            }
+        }
+        swap(array, i, mayor);                                                                   // T(n) = c7*(n-1)
+    }
 }
 
 /**
