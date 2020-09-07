@@ -62,18 +62,24 @@ public class CodingBat{
         return ans; //C7
       }
 
-    public int maxSpan(int[] nums) {
-        int maxSpan = 0;                //c1
-        int span;                       //c2
-        int j;                          //c3
-          for(int i = 0; i < nums.length; i++){                  //c4 * n
-              for(j = nums.length - 1; nums[i] != nums[j]; j--); //c5 * n * n
-              span = 1 + j - i;                 //c6 * n * n 
-              if(span > maxSpan)                //c7 * n * n           
-                  maxSpan = span;               //c8 * n * n 
-          }
-          return maxSpan;                       //c9
-    }
+     public int maxSpan(int[] nums) {
+         if(nums.length == 0){ //c1
+           return 0; //c2
+           } 
+         int maxSpan = 1; //c3
+         int span = 0 ; //c4
+         for(int i = 0; i < nums.length; i++){ //c5*n
+               for(int j = nums.length - 1; j >= 0; j--){ //c6*n*n
+                    if(nums[j] == nums[i]){ //c7*n*n
+                    span = j - i + 1; //c8*n*n
+                    if(span > maxSpan){ //c9*n*n
+                    maxSpan = span; //c10*n*n
+                  }
+                }
+           }
+      }
+  return maxSpan; //C11
+}
 
     public int[] fix34(int[] nums) {
         int t=0;                                  //c1
