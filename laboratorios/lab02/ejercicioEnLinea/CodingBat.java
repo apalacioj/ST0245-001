@@ -1,45 +1,54 @@
 public class CodingBat{
 
-    public int countEvens(int[] nums) {
-        int cont = 0;           //c1 
-        for(int i = 0; i < nums.length; i++){       //c2 * n
-          if(nums[i] % 2 == 0){                     //c3 * n
-            cont++;             
+     public int countEvens(int[] nums) {
+        int cont = 0;                               // T(n) = c1 
+        for(int i = 0; i < nums.length; i++){       // T(n) = c2*n
+          if(nums[i] % 2 == 0){                     // T(n) = c3*n
+            cont++;                                                            
           }                 
         }
-        return cont;   //c4
+        return cont;                                // T(n) = c4 
     }
 
     public int sum13(int[] nums) {
-        int sum = 0;        //c1
-        for (int i = 0; i < nums.length; i++) {    //c2 * n  
-            if (nums[i] == 13) {                   // c3 * n
+        int sum = 0;                               // T(n) = c1
+        for (int i = 0; i < nums.length; i++) {    // T(n) = c2*n  
+            if (nums[i] == 13) {                   // T(n) = c3*n
                 i++;                    
                 continue;
             }
-        sum += nums[i];                     //c4 * n
+        sum += nums[i];                            // T(n) = c4*n
         }
-        return sum;   // c5
+        return sum;                                // T(n) = c5
     }
 
     public int[] fizzArray(int n) {
-        int[] result = new int[n];          //c1
-        for(int i = 0; i < n; i++){         //c2 * n
-            result[i] = i;                  //c3 * n
+        int[] result = new int[n];                 // T(n) = c1
+        for(int i = 0; i < n; i++){                // T(n) = c2*n
+            result[i] = i;                         // T(n) = c3*n
         }
-        return result;                  //c4
+        return result;                             // T(n) = c4
     }
 
     public boolean more14(int[] nums) {
-        int count1 = 0;                         //c1
-        int count4 = 0;                         //c2
-        for(int i = 0; i < nums.length; i++){           //c3*n
-          if(nums[i] == 1) count1++;                    //c4*n
-          if(nums[i] == 4) count4++;                    //c5*n
+        int count1 = 0;                            // T(n) = c1
+        int count4 = 0;                            // T(n) = c2
+        for(int i = 0; i < nums.length; i++){      // T(n) = c3*n
+          if(nums[i] == 1) count1++;               // T(n) = c4*n
+          if(nums[i] == 4) count4++;               // T(n) = c5*n
         }
-        return count1 > count4;                //c6
+        return count1 > count4;                    // T(n) = c6
  
     }
+
+    public boolean sum28(int[] nums) {
+        int sum = 0;                               // T(n) = c1
+        for(int i = 0; i < nums.length; i++){      // T(n) = c2*n
+          if(nums[i] == 2) sum+= 2;                // T(n) = c3*n
+        }
+        return sum == 8;                           // T(n) = c4
+      }
+
 
     public int[] seriesUp(int n) {
         int [] ans = new int [n*(n+1)/2]; //C1
@@ -80,29 +89,6 @@ public class CodingBat{
         }
       return nums;                               //c8
     }
-
-    public int[] fix45(int[] nums) {
-        int index=0;
-            for(int i=0;i<=nums.length-2;i++){
-                if(nums[i]==4 &&nums[i+1]!=5){
-                    for(int j=index;j<=nums.length-1;j++){
-                        if(nums[j]==5 && j==0){
-                            nums[0]=nums[i+1];
-                            nums[i+1]=5;
-                            index++;
-                        }
-                        if(nums[j]==5 && nums[j-1]!=4){
-                            nums[j]=nums[i+1];
-                            nums[i+1]=5;
-                            index=j;
-                            break;
-                        }
-                    }
-                }
-            }
-        return nums;
-    }
-    
 
     public boolean canBalance(int[] nums) {
         int acum1 = 0;                                  //C1
