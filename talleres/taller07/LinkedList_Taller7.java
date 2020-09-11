@@ -1,0 +1,158 @@
+
+import java.lang.IndexOutOfBoundsException;
+
+/**
+ *Esta clase representa una lista simplemente enlazada que almacena coordenadas de abeja.
+ * Permite realizar diferentes operaciones como insertar, borrar, buscar y decir 
+ * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo
+ * @version 10/09/2020
+ */
+public class LinkedList_Taller7 {
+    private Nodo first;
+    private int size;
+
+    public LinkedList_Taller7(){
+        size = 0;
+        first = null;	
+    }
+
+    /**
+     * Este método retorna un nodo en una posición determinada
+     * @param index índice del nodo que se retornará
+     * @return nodo en el índice determinado por el usuario.
+     * @throws IndexOutOfBoundsException
+     */
+    private Nodo getNodo(int index) throws IndexOutOfBoundsException {
+        if (index >= 0 && size > index) {
+            Nodo temp = first;
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+            return temp;
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    /**
+     * Este método retorna la coordenada de una abeja contenida en un índice determinado
+     * @param index índice de la coordenada de la abeja a retornar
+     * @return coordenadas de la abeja en el índice determinado
+     * @throws IndexOutOfBoundsException
+     */
+    public abeja getAbeja(int index) throws IndexOutOfBoundsException {
+        Nodo temp = getNodo(index);
+        return temp.data;
+    }
+
+    /**
+     * Este método retorna la longitud de la lista actual.
+     * @return tamaño de la lista
+     */
+    public int size(){
+        return size;
+    }
+
+    /**
+     * Este método agregar una coordenada de abeja en la lista en un índice dado por el usuario.
+     * @param a coordenada de abeja que se quiere agregar a la lista.
+     * @param index índice en el cual se quiere agregar la coordenada de la abeja. 
+     */
+    public void add(Nodo a, int index){
+        if(index == 0){
+            Nodo vertice = a;
+            vertice.apuntar(first);
+            first = vertice;
+
+        }
+        else if(index == size){
+            Nodo vertice = a;
+            Nodo temp = first;
+            for (int i = 0; i < size; i++) {
+                temp = temp.next;
+            }
+            temp.apuntar(vertice);
+            
+        }
+        else if(index >= 0){                                            //O(n)
+            Nodo temp = first;
+            for(int i = 0; i < index-1; i++){
+                temp = temp.getNext();
+            }
+            Nodo temp2 = temp.getNext();
+            Nodo vertice = a;
+            vertice.apuntar(temp2);
+            temp.apuntar(vertice);
+            
+        }
+        else return;
+    }
+
+    /**
+     * Este método elimina una coordenada de abeja en la lista en un índice dado por el usuario.
+     * @param index índice de la coordenada de abeja que se quiere eliminar.
+     */
+    public void remove(int index){
+        if(size == 0){
+            return;
+        }
+        else if(index == 0){
+            Nodo temp = first;
+            first = first.getNext();
+            temp.remove();
+            
+        } 
+        else if(index == size){
+            Nodo temp = first;
+            Nodo temp2 = first.getNext();
+            while(temp.getNext() != null) {
+                temp = temp.getNext();
+            }
+            temp2.setNext(null);
+            temp.remove();
+        }
+        else if(index >= 0){
+            Nodo temp = first;
+            for(int i = 0; i < index-1; i++){
+                temp = temp.getNext();
+            }
+            Nodo temp2 = temp.getNext();
+            Nodo temp3 = temp2.getNext();
+            temp2.remove();
+            temp.apuntar(temp3);
+
+        }
+
+    }
+
+    /**
+     * Este método revisa si la lista contiene cierta coordenada de una abeja.
+     * @param a coordenada de la abeja que se buscará en la lista para saber si está o no.
+     * @return true, si la coordenada se encuentra en la lista, de lo contrario, false. 
+     */
+    public boolean contains(abeja a){
+        Nodo temp = first;
+        for(int i = 0; i<size ; i++){
+            if(temp.data == a){
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+
+    }
+
+    public void containsPosition(abeja a){
+        Nodo temp = first;
+        int cont = 0;
+        for(int i = 0; i<size ; i++){
+            if(temp.data == a){
+                System.out.println("Abeja encontrada en la posición: " + cont);
+                break;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Abeja no encontrada");;
+
+    }
+}
