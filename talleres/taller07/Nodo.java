@@ -1,7 +1,5 @@
- 
-
 /**
- *Esta clase inicializa un nodo para nuestra Linked List.
+ *Esta clase inicializa un nodo para nuestra Linked List y contiene operaciones con ellos.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
  * @version 10/09/2020
  */
