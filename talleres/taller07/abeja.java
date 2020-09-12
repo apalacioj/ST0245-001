@@ -1,5 +1,3 @@
- 
-
  /**
  *Esta clase crea la coordenada de una abeja robótica, lo cual hace parte del primer ejercicio
  *propuesto en el taller 6.
