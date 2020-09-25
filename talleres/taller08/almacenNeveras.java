@@ -1,11 +1,9 @@
-package ejerciciosLab3;
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 /**
- *Esta clase contiene el ejercicio 2 propuesot en el Taller8.
+ *Esta clase contiene el ejercicio 2 propuesto en el Taller8.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
  * @version 23/09/2020
  */
