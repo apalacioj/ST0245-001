@@ -1,5 +1,3 @@
-package ejerciciosLab3;
-
 /**
  *Esta clase crea una solicitud de nevras con sus respectivos datos.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
