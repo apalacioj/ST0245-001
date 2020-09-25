@@ -1,5 +1,3 @@
-package ejerciciosLab3;
-
 /**
  *Esta clase crea una nevera con sus respectivas características.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
@@ -11,7 +9,7 @@ public class Neveras {
     private final String descripcion;
     
     /**
-     * Este constructo inicializa los atributos de una nevera.
+     * Este constructor inicializa los atributos de una nevera.
      * @param codigo - código de la nevera.
      * @param descripcion - descripción de una nevera en específico.
      */
