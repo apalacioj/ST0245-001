@@ -69,9 +69,11 @@ public class ejercicioEnLinea
         return texto1;
         //Complejidad asintótica para el peor de los casos --> O(n^2 + m), donde n es la longitud de la cadena de 
         //caracteres a organizar de acuerdo a los '[' y ']' que contenga y m es la longitud de la lista resultante
-        //al organizar la cadena de caracteres. Como m siempre será menor o igual que n porque para obtener la lista resultante 
-        //se eliminan '[' o ']' o por el contrario, no se eliminan porque puede que no haya ninguno de los dos, entonces la 
-        //complejidad asintótica para el peor de los casos del algoritmo es O(n^2), es decir, cuadrática.
+        //al organizar la cadena de caracteres. Como m puede ser menor que n porque para obtener la lista resultante 
+        //se eliminan '[' o ']', entonces la complejidad asintótica para el peor de los casos del algoritmo es O(n^2),
+        //es decir, cuadrática. Por otro lado, n y m pueden ser iguales (en este caso, la cadena de caracteres inicial 
+        //no tenía '[' o ']'), donde también se obtiene que la complejidad asintótica para el peor de los casos es 
+        //O(n^2).
     }
 
     /**
