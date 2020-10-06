@@ -34,8 +34,8 @@ public class ReadCSV {
         try (BufferedReader buffer = new BufferedReader(new FileReader(filename))) {
             String file;
             while ((file = buffer.readLine()) != null) {
-                String[] columns = fila.split(COMMA_DELIMITER);
-                register.add(Arrays.asList(columnas));
+                String[] columns = file.split(COMMA_DELIMITER);
+                register.add(Arrays.asList(columns));
             }
         }
         catch (FileNotFoundException e) {
@@ -44,7 +44,7 @@ public class ReadCSV {
         catch(Exception e) {
             System.out.println("Program not running");
         }
-        return registro;
+        return register;
     }
 }
 
