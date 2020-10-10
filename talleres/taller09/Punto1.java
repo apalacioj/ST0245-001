@@ -4,7 +4,8 @@ import java.util.Hashtable;
 /**
  *Esta clase contiene la solución al punto 1.1 del taller 9. 
  *Implementa una Tabla de Hash que permite asociar nombres de personas con números enteros.
- * @author aleja
+ * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
+ * @version 9/10/2020
  */
 public class Punto1{
     private final Hashtable<String, Integer> contactos;
