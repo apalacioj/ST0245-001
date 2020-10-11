@@ -1,28 +1,41 @@
 public class Gini {
-    private int Ncolumna;
+    private double gini;
+    private String variable;
     private String condition;
-    private float GiniImpurity;
 
     public Gini(){
-        
-    }
-    public Gini(int Ncolumna ,String condition, float GiniImpurity){
-        this.Ncolumna = Ncolumna;
-        this.condition = condition;
-        this.GiniImpurity = GiniImpurity;
+
     }
 
-    public int getNcolumna(){
-        return this.Ncolumna;
+    public Gini(double g, String v, String c){
+        this.gini = g;
+        this.variable = v;
+        this.condition = c;
     }
 
-    public String getCondicion(){
+    public void setGini(double g){
+        this.gini = g;
+    }
+
+    public void setVariable(String v){
+        this.variable = v;
+    }
+
+    public void setCondition(String c){
+        this.condition = c;
+    }
+
+    public double getGini(){
+        return this.gini;
+    }
+
+    public String getVariable(){
+        return this.variable;
+    }
+
+    public String getCondition(){
         return this.condition;
     }
 
-    public float getGiniImpurity(){
-        return this.GiniImpurity;
-    }
-
-
+    
 }
