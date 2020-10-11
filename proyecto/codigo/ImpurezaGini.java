@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import jdk.vm.ci.code.Register;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -19,7 +16,7 @@ public class ImpurezaGini{
     public static final String COMMA_DELIMITER = ";";
 
     /**
-     * Este método main nos permitirá leer el archivo preestablecido e imprimirá los elementos de este
+     * Este método main nos permitirá obtener el mejor Gini posible con unas condiciones ya preestablecidas en cada categoría escogida
      * @param args
      */
     public static void main(String[] args) {
@@ -69,6 +66,13 @@ public class ImpurezaGini{
         return register;
     }
 
+    /**
+     * Este método nos permitirá calcular la impureza del gini por medio de ciclos y contadores, retornando el valor redondeado de este
+     * @param column, columna a la que se le calculará el gini
+     * @param r, archivo con los datos
+     * @param condition, condición para clasificar los valores
+     * @return Valor del gini en la columna dada teniendo en cuenta la condición
+     */
     public static double calculateGiniImpurity(int column, List<List<String>> r, double condition){
 
         int contLeft = 0; 
@@ -141,17 +145,43 @@ public class ImpurezaGini{
         return balancedGini(leftIndex, rightIndex, contLeft, contRight);
 
     }
+
+    /**
+     * Este es un método auxiliar que nos permitirá calcular el gini balanceado de dos ramas
+     * @param leftIndex número de ocrrencias a la izquierda
+     * @param rightIndex número de ocurrencias a la derecha
+     * @param totalLeft total de valores a la izquierda
+     * @param totalRight total de valores a la derecha
+     * @return el gini balanceado
+     */
     public static double balancedGini(double leftIndex, double rightIndex, int totalLeft, int totalRight){
         return ((totalLeft*leftIndex) + (totalRight*rightIndex)) / (totalLeft + totalRight);
 
     }
 
-    public double getMinGini(List<List<String>> r, int column, int ma){
-        double minimo = 10000;
-        for(double i = 0; i < r; i = i + 0.1){
-            for(int j = 1)
+    /**Este método nos permitirá obtener el mejor gini posible 
+     * @param r, lista de datos a los que se les sacará el Gini
+     * @param column, columna en dónde se evaluará el método
+     * @param conditions, condiciones para evaluar el gini
+     * @return el Gini con mejor valor 
+     */
+    public static Gini getMinGini(List<List<String>> r, int column, String[] conditions){
+        double min = 10000;
+        String tempColumn = "";
+        String tempCondition = "";
+        double y = 0;
+        String temp = "";
+        double tempMin = 0;
+        for(int j = 0; j<conditions.length; j++){
+            y = calculateGiniImpurity((column, r, conditions[j]).getGini());
+            temp = String.valueOf(y);
+            tempMin = Double.parseDouble(temp);
+            if(tempMin < min){
+                min = tempMin;
+                tempColumn = r.get(0).get(column);
+                tempCondition = conditions[j];
+            }
         }
+        return new Gini((double)Math.round(min*10000d)/10000d, tempColumn, tempCondition);
     }
 }
-
-

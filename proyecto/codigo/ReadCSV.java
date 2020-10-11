@@ -16,15 +16,6 @@ public class ReadCSV {
     public static final String COMMA_DELIMITER = ";";
 
     /**
-     * Este método main nos permitirá leer el archivo preestablecido e imprimirá los elementos de este
-     * @param args
-     */
-    public static void main(String[] args) {
-        List<List<String>> register = readCSV("lite.csv");
-        System.out.println(register);
-    }
-
-    /**
      * Este método le preguntará al usuario el nombre del archivo cvs que desee leer y procederá a guardarlos en un arraylist doble que después retornará 
      * @param filename
      * @return List<List<String>> 
