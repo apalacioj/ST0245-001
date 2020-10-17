@@ -29,7 +29,6 @@ public class BinaryTree
      * Agrega a la izquierda del nodo los valores menores que el que contiene el nodo y a la derecha, los mayores o iguales.
      * @param node es la raíz del arbol.
      * @param n el dato del nodo que se quiere insertar.
-     * Inserta un dato respetando claro las desigualdades en el árbol
      */
     private void insertarAux(Node node, int n, Node anterior) { 
         if (node == null) {
