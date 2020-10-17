@@ -1,4 +1,3 @@
-
 /**
  * Esta clase contiene la solución al taller 10 sobre árboles binarios de búsqueda.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo
