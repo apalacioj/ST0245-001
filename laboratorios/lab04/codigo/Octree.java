@@ -5,7 +5,7 @@
  *in the limits of this, until the bee is alone, or within a diagonal quadrant of less than 100 meters in length. 
  *This is done to ensure that all the bees within this quadrant are in danger of colliding.
  * @author: Daniel Otero Gomez, Rafael Mateus Carrion, Valentina Moreno Ramírez, Alejandra Palacio Jaramillo. 
- * @version: 4/7/2019/A
+ * @version: 2
  * @see Octree
  * @see Bee
  */
