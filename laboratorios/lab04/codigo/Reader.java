@@ -10,8 +10,8 @@ import java.util.Collections;
  *Likewise, it is responsible for saving the coordinates of each bee in other LinkedList 
  *corresponding to each coordinate, so that it can be passed to the Octree class, which needs 
  *them to function.
- * @author: Daniel Otero Gomez, Rafael Mateus Carrion. 
- * @version: 4/7/2019/A
+ * @author: Daniel Otero Gomez, Rafael Mateus Carrion, Alejandra Palacio, Valentina Moreno.
+ * @version: 2
  * @see Octree
  * @see Bee
  */
