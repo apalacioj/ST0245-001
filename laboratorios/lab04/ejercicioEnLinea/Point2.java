@@ -89,7 +89,7 @@ public class Point2
         } else {
             System.out.println(node.data);
             preOrder(node.left);
-            preOrder(node.right);               //O(n*m)
+            preOrder(node.right);               
         }
     }
 
@@ -106,7 +106,7 @@ public class Point2
             return;
         } else {
             posOrder(node.left);
-            posOrder(node.right);           // O(n*m)
+            posOrder(node.right);           
             System.out.println(node.data);          
         }
     }
