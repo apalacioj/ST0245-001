@@ -51,6 +51,6 @@ public class abeja {
     * @return altura en metros de una abeja.
     */
    public double getZ(){
-      return this.y;
+      return this.z;
    }
 }

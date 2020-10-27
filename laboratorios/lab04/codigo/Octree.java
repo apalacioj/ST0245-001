@@ -1,16 +1,22 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.io.IOException;
+import java.util.Collections; 
+
 /**
  *This is our data structure, Octree. This will be responsible for positioning each bee in a specific quadrant, 
  *so you can determine if it collides or not. Its main function will be divided into eight quadrants, in 3D. 
  *If more than one bee is found in a quadrant, this quadrant will be divided into multiple subOctrees, found 
  *in the limits of this, until the bee is alone, or within a diagonal quadrant of less than 100 meters in length. 
  *This is done to ensure that all the bees within this quadrant are in danger of colliding.
+ *Nota-->para realizar esta implementación del Octree, se utilizó parte del código_estudiante dado por el docente.
  * @author: Daniel Otero Gomez, Rafael Mateus Carrion, Valentina Moreno Ramírez, Alejandra Palacio Jaramillo. 
  * @version: 2
  * @see Octree
- * @see Bee
+ * @see abeja
  */
-import java.util.ArrayList;
-import java.util.LinkedList;
+
 public class Octree
 {
     /**
@@ -26,30 +32,30 @@ public class Octree
      * @see hashing
      * @see nuevoOct
      */
-    public void octree(LinkedList<abeja> abejas, double [] mins, double[] mids){
+    public void octree(LinkedList<abeja> abejas, double [] mins, double[] mids, double [] maxs)throws Exception{
         LinkedList<abeja>[] octree = new LinkedList[8];
         for (int i=0; i<octree.length; i++) {
             LinkedList<abeja> abejasAux = new LinkedList();
             octree[i] = abejasAux;
         }       
         for (abeja a: abejas) {
-           LinkedList<abeja> abejasAux = octree[hashing(a, mins, mids)];
-           abejasAux.addFirst(a);
-           abejas.poll();
+            LinkedList<abeja> abejasAux = octree[hashing(a, mins, mids)];
+            abejasAux.addFirst(a);
         }
-        double ph=Math.sqrt(Math.pow((mids[0])*111325,2)+Math.pow((mids[1])*111325,2)); //Primera hipotenusa
-        double diagonal=Math.sqrt(Math.pow(ph,2)+Math.pow((mids[2]),2)); 
+        double diagonal=Math.sqrt(Math.pow(mids[0]*111111,2)+Math.pow(mids[1]*111111,2)+Math.pow(mids[2],2)); 
         if (diagonal<=100) {
             for (int i=0; i<octree.length; i++){
                 LinkedList<abeja> abejasAux = octree[i];
-                if (abejasAux.size()>0){
-                    choque(octree[i]);
+                if(abejasAux.size()>0){
+                    choque(abejasAux);
                 }
-            }
-        } else {
-            for (int i=0; i<octree.length; i++) {
-                LinkedList<abeja> abejasAux = octree[i];
-                nuevoOctree(octree[i],mins,i,mids);
+            } 
+            System.out.println("------------------------------------------");
+        }else if(diagonal>100){
+            for(LinkedList<abeja> list :octree){
+                if(list.size()>=2){
+                    nuevoOctree(list,mins,mids,maxs);
+                }
             }
         }
     }
@@ -66,28 +72,28 @@ public class Octree
      */
     private int hashing(abeja abeja, double[] mins, double[] mids) {
         int hashNum = 0;
-        if(abeja.getX()<=(mins[0] + mids[0]) && abeja.getY()<=(mins[1] + mids[1]) && abeja.getZ()<=(mins[2]+mids[2])){
+        if(abeja.getX()<=(mins[0] + mids[0]/2) && abeja.getY()<=(mins[1] + mids[1]/2) && abeja.getZ()<=(mins[2]+mids[2]/2)){
             hashNum = 0;
         }
-        if(abeja.getX()<=(mins[0] + mids[0]) && abeja.getY()<=(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2])){
+        if(abeja.getX()<=(mins[0] + mids[0]/2) && abeja.getY()<=(mins[1] + mids[1]/2) && abeja.getZ()>(mins[2]+mids[2]/2)){
             hashNum = 1;
         }
-        if(abeja.getX()<=(mins[0] + mids[0]) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()<=(mins[2]+mids[2])){
+        if(abeja.getX()<=(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]/2) && abeja.getZ()<=(mins[2]+mids[2]/2)){
             hashNum = 2;
         }
-        if(abeja.getX()<=(mins[0] + mids[0]) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2])){
+        if(abeja.getX()<=(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]/2) && abeja.getZ()>(mins[2]+mids[2]/2)){
             hashNum = 3;
         }
-        if(abeja.getX()>(mins[0] + mids[0]) && abeja.getY()<=(mins[1] + mids[1]) && abeja.getZ()<=(mins[2]+mids[2])){
+        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()<=(mins[1] + mids[1]/2) && abeja.getZ()<=(mins[2]+mids[2]/2)){
             hashNum = 4;
         }
-        if(abeja.getX()>(mins[0] + mids[0]) && abeja.getY()<=(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2])){
+        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()<=(mins[1] + mids[1]/2) && abeja.getZ()>(mins[2]+mids[2]/2)){
             hashNum = 5;
         }
-        if(abeja.getX()>(mins[0] + mids[0]) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()<=(mins[2]+mids[2])){
+        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]/2) && abeja.getZ()<=(mins[2]+mids[2]/2)){
             hashNum = 6;
         }
-        if(abeja.getX()>(mins[0] + mids[0]) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2])){
+        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2]/2)){
             hashNum = 7;
         }
         return hashNum;
@@ -102,49 +108,34 @@ public class Octree
      *vertex of the next Octree. Take it as if it were one of the vertex of the octree.
      * @param int sector: sector in which it is located.
      */
-    public void nuevoOctree(LinkedList<abeja> abejas, double[] mins,int sector, double[] mids) {
-        mids[0] = mids[0]/2;
-        mids[1] = mids[1]/2;
-        mids[2] = mids[2]/2;
-        double nuevoalt = mins[2]+mids[2];
-        double nuevolon = mins[1]+mids[1];
-        double nuevolat = mins[0]+mids[0];
-        if (sector==0) {
-            octree(abejas,mins,mids);
-        } 
-        if (sector==1) {
-            mins[2] = nuevoalt;
-            octree(abejas,mins,mids);
+    public void nuevoOctree(LinkedList<abeja> abejas, double[] mins, double[] mids, double[]maxs) throws Exception{
+        double min0 = 1000000;
+        double min1 = 1000000;
+        double min2 = 1000000;
+        double max0 = -1000000;
+        double max1 = 0;
+        double max2 = 0;
+        for(int i = 0; i<abejas.size(); i++){
+            min0 = Math.min(min0,abejas.get(i).getX());
+            min1 = Math.min(min1,abejas.get(i).getY());
+            min2 = Math.min(min2,abejas.get(i).getZ());
+            max0 = Math.max(max0,abejas.get(i).getX());
+            max1 = Math.max(max1,abejas.get(i).getY());
+            max2 = Math.max(max2,abejas.get(i).getZ());
         }
-        if (sector==2) {
-            mins[1] = nuevolon;
-            octree(abejas,mins,mids);
-        }
-        if (sector==3) {
-            mins[2] = nuevoalt;
-            mins[1] = nuevolon;
-            octree(abejas,mins,mids);
-        }
-        if (sector==4) {
-            mins[0] = nuevolat;
-            octree(abejas,mins,mids);
-        }
-        if (sector==5) {
-            mins[0] = nuevolat;
-            mins[2] = nuevoalt;
-            octree(abejas,mins,mids);
-        }
-        if (sector==6) {
-            mins[0] = nuevolat;
-            mins[1] = nuevolon;
-            octree(abejas,mins,mids);
-        }
-        if(sector==7){
-            mins[0] = nuevolat;
-            mins[1] = nuevolon;
-            mins[2] = nuevoalt;
-            octree(abejas,mins,mids);
-        }
+        double mid0 = max0-min0;
+        double mid1 = max1-min1;
+        double mid2 = max2-min2;
+        mins[0] = min0;
+        mins[1] = min1;
+        mins[2] = min2;
+        maxs[0] = max0;
+        maxs[1] = max1;
+        maxs[2] = max2;
+        mids[0] = mid0/2;
+        mids[1] = mid1/2;
+        mids[2] = mid2/2;
+        octree(abejas,mins,mids,maxs);
     }
 
     /**
@@ -153,10 +144,15 @@ public class Octree
      * @param LinkedList<Bee> abejas: bees of the sector
      */
     public void choque(LinkedList<abeja> abejas) {
-        System.out.println("Las abejas en las siguientes coordenadas estan en peligro de chocarse");
         for (abeja abeja:abejas) {
-            System.out.println(abejas.poll().getX()+","+abejas.poll().getY()+","+abejas.poll().getZ());
+            System.out.println(abeja.mostrarCoordenada());
         }
+    }
+
+    public static void main(String[]args) throws IOException, Exception{
+        Reader rm = new Reader();
+        System.out.println("Conjuntos de abejas que colisionarán");
+        rm.leer("100abejas.txt");
     }
 
 }

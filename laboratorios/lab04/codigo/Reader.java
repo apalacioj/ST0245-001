@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Collections; 
 /**
- * This class is responsible for reading a text file containing an indeterminate number of 
+ *This class is responsible for reading a text file containing an indeterminate number of 
  *bees, identifying their coordinates and storing them in a LinkedList of Bee objects. 
  *Likewise, it is responsible for saving the coordinates of each bee in other LinkedList 
  *corresponding to each coordinate, so that it can be passed to the Octree class, which needs 
  *them to function.
+ *Nota-->para realizar esta implementación de la clase Reader, se utilizó parte del código_estudiante dado por el docente.
  * @author: Daniel Otero Gomez, Rafael Mateus Carrion, Alejandra Palacio, Valentina Moreno.
  * @version: 2
  * @see Octree
- * @see Bee
+ * @see abeja
  */
 public class Reader
 {
@@ -29,7 +30,7 @@ public class Reader
      * @param String dir: adress of where the file is
      * @see splitString
      */
-    public void leer (String dir) throws IOException{
+    public void leer (String dir) throws IOException, Exception{
         try (BufferedReader br=new BufferedReader(new FileReader(dir))){
             String line;
             while ((line=br.readLine())!=null){
@@ -68,35 +69,35 @@ public class Reader
      *its diagonals will be less than 100m) it will be printed all the coordinates of the bees of the data set.
      * @see choque
      */
-    public void getMaxMin(){
+    public void getMaxMin() throws Exception{
         double minlat=(double)Collections.min(lat);
-        System.out.println("La latitud minima es: "+minlat);
         double maxlat=(double)Collections.max(lat);
 
         double minlon=(double)Collections.min(lon);
-        System.out.println("La longitud minima es: "+minlon);
         double maxlon=(double)Collections.max(lon);
 
         double minalt=(double)Collections.min(alt);
-        System.out.println("La altura minima es: "+minalt);
         double maxalt=(double)Collections.max(alt);
 
         double [] mins = new double[3];
+        double [] maxs = new double[3];
         mins[0] = minlat;
         mins[1] = minlon;
         mins[2] = minalt;
-        double midlat=(maxlat-minlat)/2;
-        double midlon=(maxlon-minlon)/2;
-        double midalt=(maxalt-minalt)/2;
+        maxs[0] = maxlat;
+        maxs[1] = maxlon;
+        maxs[2] = maxalt;
+        double midlat=maxlat-minlat;
+        double midlon=maxlon-minlon;
+        double midalt=maxalt-minalt;
         double [] mids = new double[3];
-        mids[0] = midalt;
+        mids[0] = midlat;
         mids[1] = midlon;
         mids[2] = midalt;
-        double ph=Math.sqrt(Math.pow((mids[0])*111325,2)+Math.pow((mids[1])*111325,2));
-        double diagonal=Math.sqrt(Math.pow(ph,2)+Math.pow((mids[2]),2));
+        double diagonal=Math.sqrt(Math.pow(mids[0]*111111,2)+Math.pow(mids[1]*111111,2)+Math.pow(mids[2],2));
         if (diagonal>100) {
             Octree arbol=new Octree();
-            arbol.octree(bees,mins,mids);
+            arbol.octree(bees,mins,mids,maxs);
         } else {
             choque();
         }
@@ -109,8 +110,7 @@ public class Reader
     public void choque() {
         System.out.println("Las abejas en las siguientes coordenadas estan en peligro de chocarse");
         for (abeja a: bees) {
-            abeja bee=bees.poll();
-            System.out.println(bee.getX()+","+bee.getY()+","+bee.getZ());
+            System.out.println(a.mostrarCoordenada());
         }
     }
 }
