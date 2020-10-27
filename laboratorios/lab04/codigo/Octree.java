@@ -116,12 +116,13 @@ public class Octree
         double max1 = 0;
         double max2 = 0;
         for(int i = 0; i<abejas.size(); i++){
-            min0 = Math.min(min0,abejas.get(i).getX());
-            min1 = Math.min(min1,abejas.get(i).getY());
-            min2 = Math.min(min2,abejas.get(i).getZ());
-            max0 = Math.max(max0,abejas.get(i).getX());
-            max1 = Math.max(max1,abejas.get(i).getY());
-            max2 = Math.max(max2,abejas.get(i).getZ());
+            abeja a = abejas.get(i);
+            min0 = Math.min(min0,a.getX());
+            min1 = Math.min(min1,a.getY());
+            min2 = Math.min(min2,a.getZ());
+            max0 = Math.max(max0,a.getX());
+            max1 = Math.max(max1,a.getY());
+            max2 = Math.max(max2,a.getZ());
         }
         double mid0 = max0-min0;
         double mid1 = max1-min1;
