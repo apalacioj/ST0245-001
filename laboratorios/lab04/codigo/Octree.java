@@ -93,7 +93,7 @@ public class Octree
         if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]/2) && abeja.getZ()<=(mins[2]+mids[2]/2)){
             hashNum = 6;
         }
-        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]) && abeja.getZ()>(mins[2]+mids[2]/2)){
+        if(abeja.getX()>(mins[0] + mids[0]/2) && abeja.getY()>(mins[1] + mids[1]/2) && abeja.getZ()>(mins[2]+mids[2]/2)){
             hashNum = 7;
         }
         return hashNum;
