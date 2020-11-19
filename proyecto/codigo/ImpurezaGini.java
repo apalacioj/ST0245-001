@@ -8,30 +8,31 @@ import java.util.HashSet;
 import java.util.HashMap;
 
 /**
- *Está clase leera el archivo de datos y tendrá todos los métodos relacionados con el valor del gini
- * @author Valentina Moreno y Alejandra Palacio
+ *Está clase lee el archivo de datos y contiene todos los métodos relacionados con el valor del gini, es decir, contiene los métodos que calculan la impureza
+ *de gini respecto a un conjunto de datos, que selecciona las condiciones posibles para una variable y que selecciona la mejor condición para el conjunto
+ *de datos mencionado (índice de gini menor con el conjunto de datos).
+ * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo.
  * @version 1
- * 
  */
 public class ImpurezaGini{
     /**
-     * Este atributo es el delimitador que le indicará al programa cuando este cambie de palabra
+     * Este atributo es el delimitador que le indicará al programa cuandose cambia de palabra
      */
     public final String COMMA_DELIMITER = ";";
 
     /**
-     * Esté atributo nos permitirá guardar todos los ginis posibles de una instancia
+     * Esté atributo permite guardar todos los ginis posibles de una instancia
      */
     public final ArrayList<Gini> ginis = new ArrayList<>();
 
     /**
-     * Constructor vacío de la clase impureza de Gini
+     * Constructor vacío de la clase ImpurezaGini
      */
     public ImpurezaGini(){   
     }
 
     /**
-     * Este método le preguntará al usuario el nombre del archivo cvs que desee leer y procederá a guardarlos en un arraylist doble que después retornará 
+     * Este método lee el archivo de datos csv indicado por el usuario, los cuales se guardarán en una matriz que después retornará 
      * @param filename nombre del archivo a leer
      * @return conjunto de datos leídos
      */
@@ -44,9 +45,6 @@ public class ImpurezaGini{
                 String[] columns = file.split(COMMA_DELIMITER);
                 register.add(Arrays.asList(columns));
                 cont++;
-                if(cont == 300){
-                    break;
-                }
             }
         }
         catch (FileNotFoundException e) {
@@ -56,14 +54,16 @@ public class ImpurezaGini{
             System.out.println("Program not running");
         }
         return register;
+        //O(n*m), donde n es el número de filas y m el número de columnas.
     }
 
     /**
-     * Este método calculará el número gini, dado una columna y una condición especifica
-     * @param column columna donde se encuentra la condición requerida
+     * Este método calcula la impureza de gini, según una columna y una condición específica
+     * @param column columna donde se encuentra la condición dada
      * @param r archivo de datos
-     * @param condition condición a tener en cuenta para el cálculo del número gini
-     * @return objeto gini 
+     * @param condition condición a tener en cuenta para el cálculo de la impureza de gini
+     * @return objeto Gini
+     * @see Clase Gini
      */
     public Gini calculateGiniImpurity(int column, List<List<String>> r, String condition){
         int contLeft = 0; 
@@ -71,7 +71,7 @@ public class ImpurezaGini{
         int contPositiveLeft = 0;
         int contNegativeLeft = 0;
         int contPositiveRight = 0;
-        int contNegativeRight = 0;              //O(n)
+        int contNegativeRight = 0;              
         boolean a = true;
 
         for(int i = 1; i < r.size(); i++){
@@ -129,26 +129,27 @@ public class ImpurezaGini{
         double rightIndex = Math.round((1 - (Math.pow(contPositiveRight/(double)contRight, 2)+ Math.pow(contNegativeRight/(double)contRight, 2)))*100d)/100d;
 
         return new Gini(balancedGini(leftIndex, rightIndex, contLeft, contRight), String.valueOf(column), String.valueOf(condition), column);
-
+        //O(n), donde n es el número de filas de la matriz que contiene los datos.
     }
 
     /**
-     * Este será un método auxiliar que nos ayudará a calcular el número gini total 
-     * @param leftIndex número de veces que ocurrió la condición en el lado izquierdo y fue exitoso
-     * @param rightIndex número de veces que ocurrió la condición en el lado derecho y fue exitoso
-     * @param totalLeft número de datos en total a la izquierda tanto exitosos como no exitosos
-     * @param totalRight número de datos en total a la derecha tanto exitosos como no exitosos
-     * @return número gini
+     * Este método auxiliar permitirá calcular el índice de Gini ponderado. 
+     * @param leftIndex impureza de gini de la izquierda
+     * @param rightIndex impureza de gini de la derecha
+     * @param totalLeft número de datos en total de la izquierda
+     * @param totalRight número de datos en total a la derecha
+     * @return impureza de gini ponderada
      */
     public double balancedGini(double leftIndex, double rightIndex, int totalLeft, int totalRight){
         return Math.round((((totalLeft*leftIndex) + (totalRight*rightIndex)) / (totalLeft + totalRight))*100d)/100d;
+        //O(1)
     }
 
     /**
-     * Este método nos permitirá calcular todas las condiciones posibles en una columna dada sin repeticiones
+     * Este método permite calcular todas las condiciones posibles en una columna dada sin repeticiones
      * @param r archivo de datos
-     * @param column columna a la que se le sacarán los datos 
-     * @return un hashset con todas la condiciones posibles
+     * @param column columna de la que se obtendrán las posibles condiciones
+     * @return hashset con todas la condiciones posibles
      */
     public HashSet conditions(List<List<String>> r, int column){
         HashSet conditions = new HashSet();
@@ -161,14 +162,15 @@ public class ImpurezaGini{
             }
         }
         return conditions;
+        //O(n*m), donde n es el número de filas de la matriz que contiene los datos y m es el número de condiciones que se agregan al hashset
     }
 
     /**
-     * Este método nos permitirá calcular el mejor Gini, con todas la condiciones posibles en una columna dada y se agreña al arrayList de ginis 
+     * Este método permite calcular el mejor Gini, con todas la condiciones posibles en una columna dada, el cual se agrega al Arraylist de ginis 
      * que se tiene como atributo
      * @param r archivo de datos
-     * @param conditions hashset con todas las condiciones posibles
-     * @param column columna en la cual se calcularon las condiciones y a la cuál se le calculará el Gini
+     * @param conditions hashset con todas las condiciones posibles para la columna determinada
+     * @param column columna en la cual se calcularon las condiciones y a la cuál se le calculará la condición que más reduce la impureza de gini.
      */
     public void getMinGini(List<List<String>> r, HashSet conditions, int column){
         double min = 100;
@@ -188,12 +190,13 @@ public class ImpurezaGini{
             }
         }
         ginis.add(new Gini((double)Math.round(min*10000d)/10000d, tempColumn, tempCondition, column));
+        //O(n*m), donde n es el número de condiciones en el hashset de condiciones y m la complejidad del método calculateGiniImpurity
     }
 
     /**
-     * Este método nos cálculará el mejor Gini encontrado en el atributo de ginis retornando el valor más bajo
-     * @param ginis arreglo de todos los mejores ginis con todas las condiciones posbles 
-     * @return el mejor gini
+     * Este método cálculará el mejor Gini entre todos los mejores indices de Gini de las variables dadas
+     * @param ginis vector dinámico con los mejores ginis entre todas las condiciones posbles para cada columna
+     * @return la mejor impureza de gini
      */
     public Gini bestGini(ArrayList<Gini> ginis){
         Gini ginimin = new Gini();
@@ -204,11 +207,12 @@ public class ImpurezaGini{
                 ginimin = ginis.get(i);
             }
         }
-        return ginimin;    
+        return ginimin;  
+        //O(n), donde n es el número de instancias de Gini en el arreglo.
     }
 
     /**
-     * Este será un getter que retornara el arreglo de los ginis de la instancia invocada
+     * Este getter retornará el arreglo con los ginis calculados.
      * @return arreglo de ginis
      */
     public ArrayList<Gini> getGinis(){
