@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import java.util.HashMap;
+import java.util.Queue;
 
 /**
  *Está clase lee el archivo de datos y contiene todos los métodos relacionados con el valor del gini, es decir, contiene los métodos que calculan la impureza

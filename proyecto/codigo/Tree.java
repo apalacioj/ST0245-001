@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
+import java.util.Queue;
 /**
  * Esta clase contiene los métodos básicos para crear el árbol en la clase principal y además, sirve para representar un nodo en el árbol.
  * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo
@@ -154,13 +155,17 @@ public class Tree{
      * @return árbol con sus respectivos atributos
      */
     public Tree createRoot(List<List<String>> file, Tree root, String leftOrRight){
+        int[] column = {65,66,67,68,69,70,71,72};
         root = new Tree(file);
         HashSet conditions = new HashSet();
         ImpurezaGini giniImpurity = new ImpurezaGini();
+        Gini condition = new Gini();
 
-        conditions = giniImpurity.conditions(file, root.createNodeTree(file).getColumn());
-        giniImpurity.getMinGini(file,conditions,root.createNodeTree(file).getColumn());
-        Gini condition = giniImpurity.bestGini(giniImpurity.getGinis());
+        for(int i = 0; i < 8; i++){
+            conditions = giniImpurity.conditions(file, column[i]); 
+            giniImpurity.getMinGini(file,conditions,column[i]);
+            condition = giniImpurity.bestGini(giniImpurity.getGinis());
+        }
 
         root.setCondition(condition);
         root.setleftOrRight(leftOrRight);

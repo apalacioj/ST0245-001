@@ -40,7 +40,7 @@ public class Principal{
             return tempTree;
         }
 
-        Gini conditionLeft = new Gini(tempRootLeft.createNodeTree(tempRootLeft.getFile()));
+        /**Gini conditionLeft = new Gini(tempRootLeft.createNodeTree(tempRootLeft.getFile()));
         tempRootLeft.setCondition(conditionLeft);
 
         Gini conditionRight = new Gini(tempRootRight.createNodeTree(tempRootRight.getFile()));
@@ -54,7 +54,7 @@ public class Principal{
 
         root.setTreeLeft(tempRootLeft);
         root.setTreeRight(tempRootRight);
-
+*/
         root.setTreeLeft(buildTree(root.getTreeLeft().getFile(),root.getTreeLeft(),height-1));
         root.setTreeRight(buildTree(root.getTreeRight().getFile(),root.getTreeRight(),height-1));
 
@@ -197,12 +197,14 @@ public class Principal{
         System.out.println("Leyó");
         Tree root = new Tree();
         Principal main = new Principal();
-        root = main.buildTree(file, root, 3);
+        root = main.buildTree(file, root, 9);
         System.out.println("Construyó el árbol");
-        ImpurezaGini ig1 = new ImpurezaGini();
-        List<List<String>> testFile = ig1.readCSV("test5000.csv");
-        main.results(testFile, root);
         long tf = System.currentTimeMillis();
+        long tiAux = System.currentTimeMillis();
+        ImpurezaGini ig1 = new ImpurezaGini();
+        List<List<String>> testFile = ig1.readCSV("train15000.csv");
+        main.results(testFile, root);
+        long tfAux = System.currentTimeMillis();
         memoryEnd = mbean.getHeapMemoryUsage();
         System.out.println("Code implementation time: "+((tf-ti)/1000)+"s");
         System.out.println("Memory comsuption: "+((memoryEnd.getUsed()-memoryStart.getUsed())/1000000)+"mb");
