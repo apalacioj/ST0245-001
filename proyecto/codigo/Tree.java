@@ -2,12 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 /**
- * Esta cláse será la base para crear el árbol en la clase principal y además de ser cada nodo del árbol.
- * @author Valentina Moreno y Alejandra Palacio 
+ * Esta clase contiene los métodos básicos para crear el árbol en la clase principal y además, sirve para representar un nodo en el árbol.
+ * @author Valentina Moreno Ramírez y Alejandra Palacio Jaramillo
  * @version 1
  */
 public class Tree{
-
     /**
      * Nodo izquierdo del nodo actual
      */
@@ -24,20 +23,22 @@ public class Tree{
      * Archivo de datos a los que se les ejecutará la condición para realizar la división
      */
     private List<List<String>> file;
-    
+    /**
+     * Lado en el que se encuentra el nodo respecto a su ancestro o raíz más cercana
+     */
     private String leftOrRight;
 
     /**
-     * Constructor vacío de la clase árbol
+     * Constructor vacío de la clase Tree
      */
     public Tree(){
 
     }
 
     /**
-     * Constructor de la clase árbol 
-     * @param file archivo de datos que tendrá el nodo
-     * @param root ancestro del nodo a crear
+     * Constructor de la clase Tree
+     * @param file archivo de datos que tiene el nodo
+     * @param leftOrRight lado en el cual se encuentra el nodo respecto a su raíz más cercana 
      */
     public Tree(List<List<String>> file, String leftOrRight){
         this.file = file;
@@ -46,11 +47,10 @@ public class Tree{
         this.condition = null;
         this.leftOrRight = leftOrRight;
     }
-    
+
     /**
-     * Constructor de la clase árbol 
-     * @param file archivo de datos que tendrá el nodo
-     * @param root ancestro del nodo a crear
+     * Constructor de la clase Tree 
+     * @param file archivo de datos que tiene el nodo
      */
     public Tree(List<List<String>> file){
         this.file = file;
@@ -61,11 +61,11 @@ public class Tree{
     }
 
     /**
-     * Constructor de la clase árbol
-     * @para file archivo de datos del nodo
-     * @treeleft nodo izquierdo del nodo actual 
-     * @treeright nodo derecho del nodo actual
-     * @condition condición del nodo actual
+     * Constructor de la clase Tree
+     * @param file archivo de datos del nodo
+     * @param treeleft nodo izquierdo del nodo actual 
+     * @param treeright nodo derecho del nodo actual
+     * @param condition condición del nodo actual
      */
     public Tree(List<List<String>> file, Tree treeleft, Tree treeright, Gini condition, String leftOrRight){
         this.file = file;
@@ -76,7 +76,7 @@ public class Tree{
     }
 
     /**
-     * Este será un getter que retornara el archivo de datos de la instancia invocada
+     * Este getter que retornará el archivo de datos de la instancia especificada
      * @return archivo de datos
      */
     public List<List<String>> getFile(){
@@ -84,7 +84,7 @@ public class Tree{
     }
 
     /**
-     * Este será un setter que reemplazará el valor actual de la condición
+     * Este setter reemplazará el valor actual de la condición
      * @param condition nuevo valor de la condición
      */
     public void setCondition(Gini condition){
@@ -92,15 +92,15 @@ public class Tree{
     }
 
     /**
-     * Este será un getter que retornara el valor de la condición de la instancia invocada
-     * @return valor del gini 
+     * Este getter retornará el valor de la condición de la instancia especificada
+     * @return objeto Gini que representa la condición 
      */
     public Gini getCondition(){
         return this.condition;
     }
 
     /**
-     * Este será un setter que reemplazará el valor actual de el árbol derecho
+     * Este setter reemplazará el valor actual del árbol derecho
      * @param treeRight nuevo valor del árbol derecho
      */
     public void setTreeRight(Tree treeright){
@@ -108,7 +108,7 @@ public class Tree{
     }
 
     /**
-     * Este será un setter que reemplazará el valor actual de el árbol izquierdo
+     * Este setter reemplazará el valor actual del árbol izquierdo
      * @param treeleft nuevo valor del árbol izquierdo 
      */
     public void setTreeLeft(Tree treeleft){
@@ -116,7 +116,7 @@ public class Tree{
     }
 
     /**
-     * Este será un getter que retornara el valor del árbol derecho de la instancia invocada
+     * Este getter retornará el valor del árbol derecho de la instancia especificada
      * @return árbol derecho 
      */
     public Tree getTreeRight(){
@@ -124,7 +124,7 @@ public class Tree{
     }
 
     /**
-     * Este será un getter que retornara el valor del árbo izquierdo de la instancia invocada
+     * Este getter retornará el valor del árbol izquierdo de la instancia especificada
      * @return árbol izquierdo
      */
     public Tree getTreeLeft(){
@@ -132,7 +132,7 @@ public class Tree{
     }
 
     /**
-     * Este será un getter que retornara el lado en el que se encuentra un nodo respecto a su primer ancestro.
+     * Este getter retornará el lado en el que se encuentra un nodo respecto a su primer ancestro.
      * @return lado en el que se encuentra un nodo respecto a su primer ancestro.
      */
     public String getleftOrRight(){
@@ -140,7 +140,7 @@ public class Tree{
     }
 
     /**
-     * Este será un setter que reemplazará el lado del nodo respecto a su primer ancestro.
+     * Este setter reemplazará el lado del nodo respecto a su primer ancestro.
      * @param leftOrRight lado del nodo respecto a su primer ancestro.
      */
     public void setleftOrRight(String leftOrRight){
@@ -148,10 +148,10 @@ public class Tree{
     }
 
     /**
-     * Este método nos permitirá crear la raíz del árbol
+     * Este método permitirá crear la raíz del árbol
      * @param file archivo de datos 
      * @param root nodo que será la raíz
-     * @return árbol
+     * @return árbol con sus respectivos atributos
      */
     public Tree createRoot(List<List<String>> file, Tree root, String leftOrRight){
         root = new Tree(file);
@@ -166,13 +166,13 @@ public class Tree{
         root.setleftOrRight(leftOrRight);
 
         return root;
-
+        //O(n*m), donde n es el número de filas de la matriz y m es el número de condiciones a evalua para encontrar la mejor condición.
     }
 
     /**
-     * Esté método nos permitirá conseguir la mejor condición para cada nodo
+     * Esté método permite conseguir la mejor condición para cada nodo de acuerdo con los datos que tiene.
      * @param file archivo de datos
-     * @return el mejor gini 
+     * @return el mejor gini para el archivo de datos dado 
      */
     public Gini createNodeTree(List<List<String>> file){
         int[] column = {65,66,67,68,69,70,71,72};
@@ -181,18 +181,19 @@ public class Tree{
         Gini condition = new Gini();
 
         for(int i = 0; i < 8; i++){
-            conditions = giniImpurity.conditions(file, column[i]);
+            conditions = giniImpurity.conditions(file, column[i]); 
             giniImpurity.getMinGini(file,conditions,column[i]);
             condition = giniImpurity.bestGini(giniImpurity.getGinis());
         }
         return condition;
+        //O(8(n*m)), pero al aplicar regla del producto, se obtiene O(n*m), donde n es el número de filas de la matriz y m el número de condiciones
+        //a evaluar.
     }
 
     /**
-     * Este método nos permitirá realizar la división izquierda del árbol binario de 
-     * decisión
+     * Este método permite realizar la división del nodo izquierdo del árbol binario de decisión
      * @param file archivo de datos 
-     * @param condition condición del nodo 
+     * @param condition condición que dividirá el nodo hacia la izquierda. 
      * @return nodo izquierdo
      */
     public Tree leftDivision(List<List<String>> file, Gini condition){
@@ -224,11 +225,11 @@ public class Tree{
             }
         }
         return new Tree(leftDivision, "left");
+        //O(n*m), donde n es el número de filas de la matriz y m el número de elementos que cumple con la condición y por tanto, se agregan al nodo izquierdo
     }
 
     /**
-     * Este método nos permitirá realizar la división derecha del árbol binario de 
-     * decisión
+     * Este permite realizar la división del nodo derecho del árbol binario de decisión
      * @param file archivo de datos 
      * @param condition condición del nodo 
      * @return nodo derecho
@@ -265,5 +266,6 @@ public class Tree{
             }
         }
         return new Tree(rightDivision, "right");
+        //O(n*m), donde n es el número de filas de la matriz y m el número de elementos que cumple con la condición y por tanto, se agregan al nodo derecho
     }
 }
