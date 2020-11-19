@@ -200,8 +200,6 @@ public class Principal{
         root = main.buildTree(file, root, 3);
         System.out.println("Construyó el árbol");
         ImpurezaGini ig1 = new ImpurezaGini();
-        main.results(file, root);
-        System.out.println("-------------------------------------------------");
         List<List<String>> testFile = ig1.readCSV("test5000.csv");
         main.results(testFile, root);
         long tf = System.currentTimeMillis();
