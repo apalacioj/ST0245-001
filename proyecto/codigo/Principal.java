@@ -145,7 +145,7 @@ public class Principal{
         double total = 0;
 
         for(int i = 1; i<testFile.size(); i++){
-            results[i][0] = testFile.get(i).get(77);
+            results[i][0] = testFile.get(i).get(testFile.get(0).size()-1);
             int validate = validateTree(testFile.get(i), trainTree);
             if(validate == 1){
                 exit+=1;
@@ -171,16 +171,14 @@ public class Principal{
         }
 
         total = truepositive+truenegative+falsepositive+falsenegative;
-        double exitRecall = truepositive/(truepositive+falsenegative);
-        double failureRecall = falsenegative/(truepositive+falsenegative);
+        double Recall = truepositive/(truepositive+truenegative);
         double acurrency = (truepositive+falsenegative)/total;
         double precision = truepositive/(truepositive+falsepositive);
 
         System.out.println("Total students: "+ total);
         System.out.println("Acurrency:" + ((Math.round(acurrency*100d)/100d)*100) + "%");
         System.out.println("Precision:" + ((Math.round(precision*100d)/100d)*100) + "%");
-        System.out.println("Recall:" + ((Math.round(exitRecall*100d)/100d)*100) + "%");
-        System.out.println("Recall:" + ((Math.round(failureRecall*100d)/100d)*100) + "%");
+        System.out.println("Recall:" + ((Math.round(Recall*100d)/100d)*100) + "%");
         //O(n*m), donde n es el número de filas y m el número de columnas.
     }
 
@@ -199,9 +197,11 @@ public class Principal{
         System.out.println("Leyó");
         Tree root = new Tree();
         Principal main = new Principal();
-        root = main.buildTree(file, root, 4);
+        root = main.buildTree(file, root, 3);
         System.out.println("Construyó el árbol");
         ImpurezaGini ig1 = new ImpurezaGini();
+        main.results(file, root);
+        System.out.println("-------------------------------------------------");
         List<List<String>> testFile = ig1.readCSV("test5000.csv");
         main.results(testFile, root);
         long tf = System.currentTimeMillis();
