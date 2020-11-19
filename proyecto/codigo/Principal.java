@@ -39,22 +39,6 @@ public class Principal{
             Tree tempTree = new Tree(root.getFile(), null, null, root.getCondition(), root.getleftOrRight());
             return tempTree;
         }
-
-        /**Gini conditionLeft = new Gini(tempRootLeft.createNodeTree(tempRootLeft.getFile()));
-        tempRootLeft.setCondition(conditionLeft);
-
-        Gini conditionRight = new Gini(tempRootRight.createNodeTree(tempRootRight.getFile()));
-        tempRootRight.setCondition(conditionRight);
-
-        tempRootLeft.setTreeLeft(root.leftDivision(tempRootLeft.getFile(),conditionLeft));
-        tempRootLeft.setTreeRight(root.rightDivision(tempRootLeft.getFile(),conditionLeft));
-
-        tempRootRight.setTreeLeft(root.leftDivision(tempRootRight.getFile(),conditionRight));
-        tempRootRight.setTreeRight(root.rightDivision(tempRootRight.getFile(),conditionRight));
-
-        root.setTreeLeft(tempRootLeft);
-        root.setTreeRight(tempRootRight);
-*/
         root.setTreeLeft(buildTree(root.getTreeLeft().getFile(),root.getTreeLeft(),height-1));
         root.setTreeRight(buildTree(root.getTreeRight().getFile(),root.getTreeRight(),height-1));
 
@@ -172,11 +156,11 @@ public class Principal{
 
         total = truepositive+truenegative+falsepositive+falsenegative;
         double Recall = truepositive/(truepositive+truenegative);
-        double acurrency = (truepositive+falsenegative)/total;
+        double accuracy = (truepositive+falsenegative)/total;
         double precision = truepositive/(truepositive+falsepositive);
 
         System.out.println("Total students: "+ total);
-        System.out.println("Acurrency:" + ((Math.round(acurrency*100d)/100d)*100) + "%");
+        System.out.println("Acurrency:" + ((Math.round(accuracy*100d)/100d)*100) + "%");
         System.out.println("Precision:" + ((Math.round(precision*100d)/100d)*100) + "%");
         System.out.println("Recall:" + ((Math.round(Recall*100d)/100d)*100) + "%");
         //O(n*m), donde n es el número de filas y m el número de columnas.
@@ -193,20 +177,21 @@ public class Principal{
         memoryStart = mbean.getHeapMemoryUsage();
         ImpurezaGini ig = new ImpurezaGini();
         long ti = System.currentTimeMillis();
-        List<List<String>> file = ig.readCSV("train15000.csv");
+        List<List<String>> file = ig.readCSV("train135000.csv");
         System.out.println("Leyó");
         Tree root = new Tree();
         Principal main = new Principal();
-        root = main.buildTree(file, root, 9);
+        root = main.buildTree(file, root, 5);
         System.out.println("Construyó el árbol");
         long tf = System.currentTimeMillis();
         long tiAux = System.currentTimeMillis();
         ImpurezaGini ig1 = new ImpurezaGini();
-        List<List<String>> testFile = ig1.readCSV("train15000.csv");
+        List<List<String>> testFile = ig1.readCSV("test45000.csv");
         main.results(testFile, root);
         long tfAux = System.currentTimeMillis();
         memoryEnd = mbean.getHeapMemoryUsage();
-        System.out.println("Code implementation time: "+((tf-ti)/1000)+"s");
+        System.out.println("Train implementation time: "+((tf-ti)/1000)+"s");
+        System.out.println("Validate implementation time: "+((tfAux-tiAux)/1000)+"s");
         System.out.println("Memory comsuption: "+((memoryEnd.getUsed()-memoryStart.getUsed())/1000000)+"mb");
     }
 }

@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import java.util.Queue;
+import java.util.HashMap;
 
 /**
  *Está clase lee el archivo de datos y contiene todos los métodos relacionados con el valor del gini, es decir, contiene los métodos que calculan la impureza
@@ -190,7 +190,7 @@ public class ImpurezaGini{
             }
         }
         ginis.add(new Gini((double)Math.round(min*10000d)/10000d, tempColumn, tempCondition, column));
-        //O(n*m), donde n es el número de condiciones en el hashset de condiciones y m la complejidad del método calculateGiniImpurity
+        //O(n^2), donde n es el número de filas de la matriz de datos
     }
 
     /**

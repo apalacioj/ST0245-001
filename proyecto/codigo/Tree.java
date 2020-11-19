@@ -175,27 +175,6 @@ public class Tree{
     }
 
     /**
-     * Esté método permite conseguir la mejor condición para cada nodo de acuerdo con los datos que tiene.
-     * @param file archivo de datos
-     * @return el mejor gini para el archivo de datos dado 
-     */
-    public Gini createNodeTree(List<List<String>> file){
-        int[] column = {65,66,67,68,69,70,71,72};
-        HashSet conditions = new HashSet();
-        ImpurezaGini giniImpurity = new ImpurezaGini();
-        Gini condition = new Gini();
-
-        for(int i = 0; i < 8; i++){
-            conditions = giniImpurity.conditions(file, column[i]); 
-            giniImpurity.getMinGini(file,conditions,column[i]);
-            condition = giniImpurity.bestGini(giniImpurity.getGinis());
-        }
-        return condition;
-        //O(8(n*m)), pero al aplicar regla del producto, se obtiene O(n*m), donde n es el número de filas de la matriz y m el número de condiciones
-        //a evaluar.
-    }
-
-    /**
      * Este método permite realizar la división del nodo izquierdo del árbol binario de decisión
      * @param file archivo de datos 
      * @param condition condición que dividirá el nodo hacia la izquierda. 
@@ -274,3 +253,4 @@ public class Tree{
         //O(n*m), donde n es el número de filas de la matriz y m el número de elementos que cumple con la condición y por tanto, se agregan al nodo derecho
     }
 }
+
